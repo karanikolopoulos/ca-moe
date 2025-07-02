@@ -15,7 +15,7 @@ packages = [{include = "ca_moe"}]
 
 
 [tool.poetry.group.tf.dependencies]
-tensorflow = "^2.19.0"
+tensorflow = {extras = ["and-cuda"], version = "^2.19.0"}
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -11,3 +11,4 @@ wheels/
 
 # Development
 notebooks/proto.ipynb
+data/experiments/*

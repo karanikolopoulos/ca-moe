@@ -1,2 +1,6 @@
+defaults:
+  - settings
+  - _self_
+
 dataset: mnist
 model: model

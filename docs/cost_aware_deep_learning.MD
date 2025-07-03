@@ -36,7 +36,7 @@ There are two tasks in our case, the accuracy and the cost. In a MTL scenario th
 \end{equation*}
 $$ -->
 <p align="center">
-  <img src="eq_1" alt="Loss function equation" width="500"/>
+  <img src="eq_1.png" alt="eq_1" width="300"/>
 </p>
 Thus, the CA-MoE loss can be decomposed into two losses. The first loss, is the traditional loss of the original MoE model, regarding the accuracy. In this case, the gater selects the best or most capable experts in order to partition the input space and maximize the accuracy. The second loss is the weighted sum of the costs of every expert. In this case, the gater selects the expert that has the lowest computational cost. It is evident, that the probabilities $p_{i}$ take place in both losses, therefore the common backbone they share are the weights of the gating network.
 

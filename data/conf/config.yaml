@@ -1,6 +1,11 @@
 defaults:
   - settings
+  - backend: tensorflow
   - _self_
 
+device: gpu
+model: LR
 dataset: mnist
-model: model
+epochs: 50
+patience: 3
+

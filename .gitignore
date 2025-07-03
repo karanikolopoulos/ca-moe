@@ -10,5 +10,6 @@ wheels/
 .venv
 
 # Development
+.env
 notebooks/proto.ipynb
 data/experiments/*

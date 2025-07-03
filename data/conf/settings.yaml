@@ -5,9 +5,9 @@ hydra:
 #   sweep:
 #     dir: data/experiments/
 #     subdir: ${slug:3}
-#   callbacks:
-#       save_job_info:
-#         _target_: themis.utils.callbacks.MyCallback
+  callbacks:
+      save_job_info:
+        _target_: ca_moe.utils.callbacks.MyCallback
 
 defaults:
   - override hydra/job_logging: custom

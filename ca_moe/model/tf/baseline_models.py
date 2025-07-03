@@ -1,6 +1,17 @@
-import tensorflow as tf
 from tensorflow import keras
+import logging
 
+logger = logging.getLogger(__name__)
+
+def model_factory(model: str):
+    if model == "LR":
+        return build_logreg()
+    
+    if model == "NN1":
+        return build_neural_net1()
+    
+    if model == "NN2":
+        return build_neural_net2()
 
 def build_logreg(seed=2025):
     keras.utils.set_random_seed(seed)

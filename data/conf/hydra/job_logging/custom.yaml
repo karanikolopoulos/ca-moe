@@ -21,11 +21,10 @@ root:
   level: INFO
   handlers: [console, file]
   propagate: yes
-#   hydra:
-#     level: INFO
-#     handlers: [console, file]
-#     propagate: no
-
+tensorflow:
+  level: INFO
+  handlers: [console, file]
+  propagate: no
 
 
 disable_existing_loggers: false

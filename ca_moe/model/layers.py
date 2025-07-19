@@ -106,19 +106,7 @@ class ConstraintMixin:
         with torch.no_grad():
             self.core.weight.copy_(self.kernel_constraint(self.core.weight))
             self.core.bias.copy_(self.bias_constraint(self.core.bias))
-@dataclass
-class Dense:
-    in_units: int
-    out_units: int
-    use_bias: bool = True
-    activation: str = "relu"
-    kernel_initializer: str = "glorot_uniform"
-    bias_initializer: str = "zeros"
-    kernel_regularizer: str | None = None
-    bias_regularizer: str | None = None
-    activity_regularizer: str | None = None
-    kernel_constraint: str | None = None
-    bias_constraint: str | None = None
+
 
 class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
     """Torch equivalent of tf.keras.Dense"""

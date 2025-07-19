@@ -2,3 +2,6 @@ builder:
   _target_: ca_moe.factories.model_factory.KerasBuilder
 flatten: tensorflow.keras.layers.Flatten
 dense: tensorflow.keras.layers.Dense
+conv2d: tensorflow.keras.layers.Conv2D
+avg_pool: tensorflow.keras.layers.AveragePooling2D
+max_pool: tensorflow.keras.layers.MaxPooling2D

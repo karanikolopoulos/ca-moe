@@ -1,5 +1,4 @@
 import logging
-from dataclasses import dataclass
 
 import torch
 import torch.nn as nn
@@ -10,41 +9,14 @@ from ca_moe.model.regularizers import get_regularizer
 
 logger = logging.getLogger(__name__)
 
-
-@dataclass
-class Dense:
-    in_units: int
-    out_units: int
-    use_bias: bool = True
-    activation: str = "relu"
-    kernel_initializer: str = "glorot_uniform"
-    bias_initializer: str = "zeros"
-    kernel_regularizer: str | None = None
-    bias_regularizer: str | None = None
-    activity_regularizer: str | None = None
-    kernel_constraint: str | None = None
-    bias_constraint: str | None = None
-
-
-@dataclass
-class Conv2D:
-    input_shape: tuple | list | None
-    filters: int
-    kernel_size: int
-    strides: int = 1
-    padding: str = "valid"
-    data_format: str = None
-    dilation_rate: int = 1
-    groups: int = 1
-    activation: str = None
-    use_bias: bool = True
-    kernel_initializer: str = "glorot_uniform"
-    bias_initializer: str = "zeros"
-    kernel_regularizer: str | None = None
-    bias_regularizer: str | None = None
-    activity_regularizer: str | None = None
-    kernel_constraint: str | None = None
-    bias_constraint: str | None = None
+activations = {
+    "relu": nn.ReLU(),
+    "tanh": nn.Tanh(),
+    "sigmoid": nn.Sigmoid(),
+    "softmax": nn.Softmax(dim=-1),
+    "gelu": nn.GELU(),
+    "linear": nn.Identity(),
+}
 
 
 class InitMixin:
@@ -110,28 +82,19 @@ class ConstraintMixin:
 class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
     """Torch equivalent of tf.keras.Dense"""
 
-    activations = {
-        "relu": nn.ReLU(),
-        "tanh": nn.Tanh(),
-        "sigmoid": nn.Sigmoid(),
-        "softmax": nn.Softmax(dim=-1),
-        "gelu": nn.GELU(),
-        "linear": nn.Identity(),
-    }
-
     def __init__(
         self,
         in_features: int,
         out_features: int,
-        bias: bool = True,
-        activation: str = "relu",
-        kernel_initializer: str = "glorot_uniform",
-        bias_initializer: str = "zeros",
-        kernel_regularizer: str | None = None,
-        bias_regularizer: str | None = None,
-        activity_regularizer: str | None = None,
-        kernel_constraint: str | None = None,
-        bias_constraint: str | None = None,
+        bias: bool,
+        activation: str,
+        kernel_initializer: str,
+        bias_initializer: str,
+        kernel_regularizer: str | None,
+        bias_regularizer: str | None,
+        activity_regularizer: str | None,
+        kernel_constraint: str | None,
+        bias_constraint: str | None,
     ) -> None:
         nn.Module.__init__(self)
         self.core = nn.Linear(
@@ -153,7 +116,7 @@ class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
             self, kernel_constraint=kernel_constraint, bias_constraint=bias_constraint
         )
 
-        self.activation = self.activations[activation]
+        self.activation = activations[activation]
         self.apply_initializers()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -168,5 +131,52 @@ class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
 
 class TorchConv2D(InitMixin, RegMixin, ConstraintMixin, nn.Module):
     """Torch equivalent of tf.keras.Conv2D"""
-    pass
-    
+
+    def __init__(
+        self,
+        in_channels: list,
+        out_channels: list,
+        kernel_size: int,
+        stride: int,
+        padding: int,
+        dilation: int,
+        groups: int,
+        bias: bool,
+        activation: str,
+        kernel_initializer: str,
+        bias_initializer: str,
+        kernel_regularizer: str | None,
+        bias_regularizer: str | None,
+        activity_regularizer: str | None,
+        kernel_constraint: str | None,
+        bias_constraint: str | None,
+    ) -> None:
+        nn.Module.__init__(self)
+        self.core = nn.Conv2d(
+            in_channels=in_channels,
+            out_channels=out_channels,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=padding,
+            dilation=dilation,
+            groups=groups,
+            bias=bias,
+        )
+        # mixins require that core attr exist
+        InitMixin.__init__(
+            self,
+            kernel_initializer=kernel_initializer,
+            bias_initializer=bias_initializer,
+        )
+        RegMixin.__init__(
+            self,
+            kernel_regularizer=kernel_regularizer,
+            bias_regularizer=bias_regularizer,
+            activity_regularizer=activity_regularizer,
+        )
+        ConstraintMixin.__init__(
+            self, kernel_constraint=kernel_constraint, bias_constraint=bias_constraint
+        )
+
+        self.activation = activations[activation]
+        self.apply_initializers()

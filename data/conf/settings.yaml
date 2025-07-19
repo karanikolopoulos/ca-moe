@@ -1,9 +1,9 @@
 hydra:
   output_subdir: null
   run:
-    dir: experiments/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    dir: data/experiments/${now:%Y-%m-%d}/${now:%H-%M-%S}
   sweep:
-    dir: experiments/${now:%Y-%m-%d}/
+    dir: data/experiments/${now:%Y-%m-%d}/
     subdir: ${now:%H-%M-%S}
   # callbacks:
   #     save_job_info:

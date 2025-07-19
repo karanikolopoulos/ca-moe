@@ -44,3 +44,22 @@ def calc_channels(*args):
     channel = int(((height + 2 * pad - kernel) / strides) + 1)
 
     return ListConfig([channel, channel, filters])
+
+
+def get_avg_pool_out_shape(*args):
+    (args,) = args
+    input_height, input_width, filters = args.get("input_shape")
+    pool_size = args.get("pool_size")
+    strides = args.get("strides")
+    padding = args.get("padding").lower()
+
+    if padding == "valid":
+        out_height = (input_height - pool_size) // strides + 1
+        out_width = (input_width - pool_size) // strides + 1
+    elif padding == "same":
+        out_height = (input_height - 1) // strides + 1
+        out_width = (input_width - 1) // strides + 1
+    else:
+        raise ValueError(f"Unsupported padding type: {padding}")
+
+    return ListConfig([out_height, out_width, filters])

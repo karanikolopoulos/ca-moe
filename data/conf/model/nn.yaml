@@ -8,23 +8,23 @@ layers:
   hidden_1:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.model.layers.Dense
-      in_units: ${flatten:${dataset.input_shape}}
-      out_units: 64
+      _target_: ca_moe.factories.model_factory.Dense
+      input_shape: ${flatten:${dataset.input_shape}}
+      units: 64
       activation: relu
 
   hidden_2:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.model.layers.Dense
-      in_units: ${...hidden_1.args.out_units}
-      out_units: 32
+      _target_: ca_moe.factories.model_factory.Dense
+      input_shape: ${...hidden_1.args.units}
+      units: 32
       activation: tanh
 
   output_layer:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.model.layers.Dense
-      in_units: ${...hidden_2.args.out_units}
-      out_units: ${dataset.no_target}
+      _target_: ca_moe.factories.model_factory.Dense
+      input_shape: ${...hidden_2.args.units}
+      units: ${dataset.no_target}
       activation: softmax

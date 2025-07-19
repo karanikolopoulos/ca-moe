@@ -21,6 +21,10 @@ root:
   level: INFO
   handlers: [console, file]
   propagate: yes
+torch:
+  level: INFO
+  handlers: [console, file]
+  propagate: no
 tensorflow:
   level: INFO
   handlers: [console, file]

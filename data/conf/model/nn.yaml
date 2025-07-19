@@ -1,0 +1,30 @@
+device: ${oc.select:device, ???}
+
+layers:
+  flatten:
+    cls: ${backend.flatten}
+    args:
+
+  hidden_1:
+    cls: ${backend.dense}
+    args:
+      _target_: ca_moe.model.layers.Dense
+      in_units: ${flatten:${dataset.input_shape}}
+      out_units: 64
+      activation: relu
+
+  hidden_2:
+    cls: ${backend.dense}
+    args:
+      _target_: ca_moe.model.layers.Dense
+      in_units: ${...hidden_1.args.out_units}
+      out_units: 32
+      activation: tanh
+
+  output_layer:
+    cls: ${backend.dense}
+    args:
+      _target_: ca_moe.model.layers.Dense
+      in_units: ${...hidden_2.args.out_units}
+      out_units: ${dataset.no_target}
+      activation: softmax

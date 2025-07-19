@@ -19,16 +19,16 @@ CONSTRAINT_REGISTRY: dict[str, Constraint] = {
 
 def get_constraint(name: str | None, **kwargs) -> Constraint:
     if name is None:
-        logger.info("No constraint name provided.")
+        logger.debug("No constraint name provided.")
         return Constraint()
 
     try:
         constraint_fn = CONSTRAINT_REGISTRY[name]
-        logger.info(f"Using constraint: {name}")
+        logger.debug(f"Using constraint: {name}")
         return constraint_fn(**kwargs)
     except KeyError:
         options = ", ".join(CONSTRAINT_REGISTRY.keys())
 
-        logger.info(f"Unknown constraint: {name}. Available options: {options}")
-        logger.info("Fallback to no constraint.")
+        logger.debug(f"Unknown constraint: {name}. Available options: {options}")
+        logger.debug("Fallback to no constraint.")
         return Constraint()

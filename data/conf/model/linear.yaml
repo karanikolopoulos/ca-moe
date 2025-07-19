@@ -1,0 +1,14 @@
+device: "${oc.select: device, ???}"
+
+layers:
+  flatten:
+    cls: ${backend.flatten}
+    args:
+
+  output_layer:
+    cls: ${backend.dense}
+    args:
+      _target_: ca_moe.model.layers.Dense
+      in_units: ${flatten:${dataset.input_shape}}
+      out_units: ${dataset.no_target}
+      activation: softmax

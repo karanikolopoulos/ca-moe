@@ -61,18 +61,18 @@ INITIALIZER_REGISTRY = init_snake | init_pascal | {"bypass": bypass}
 
 def get_initializer(name: str | None, **kwargs) -> callable:
     if name is None:
-        logger.info("No initializer name provided.")
+        logger.debug("No initializer name provided.")
         initializer_fn = bypass
 
     try:
         initializer_fn = INITIALIZER_REGISTRY[name]
-        logger.info(f"Using initializer: {name}")
+        logger.debug(f"Using initializer: {name}")
     except KeyError as e:
         options = ", ".join(INITIALIZER_REGISTRY.keys())
 
-        logger.info(repr(e))
-        logger.info(f"Unknown initializer: {name}. Available options: {options}")
-        logger.info("Fallback to no initializer.")
+        logger.debug(repr(e))
+        logger.debug(f"Unknown initializer: {name}. Available options: {options}")
+        logger.debug("Fallback to no initializer.")
         initializer_fn = bypass
 
     def wrap(tensor: torch.Tensor) -> torch.Tensor:

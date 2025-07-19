@@ -1,0 +1,3 @@
+name: fashion_mnist
+input_shape: [28, 28, 1]
+no_target: 10

@@ -1,0 +1,4 @@
+builder:
+  _target_: ca_moe.factories.model_factory.TorchBuilder
+flatten: torch.nn.Flatten
+dense: ca_moe.model.layers.TorchDense

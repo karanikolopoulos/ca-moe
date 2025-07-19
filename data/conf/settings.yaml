@@ -1,13 +1,13 @@
 hydra:
   output_subdir: null
   run:
-    dir: data/experiments/${now:%Y-%m-%d}/${now:%H-%M-%S}
-#   sweep:
-#     dir: data/experiments/
-#     subdir: ${slug:3}
-  callbacks:
-      save_job_info:
-        _target_: ca_moe.utils.callbacks.MyCallback
+    dir: experiments/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: experiments/${now:%Y-%m-%d}/
+    subdir: ${now:%H-%M-%S}
+  # callbacks:
+  #     save_job_info:
+  #       _target_: ca_moe.utils.callbacks.MyCallback
 
 defaults:
   - override hydra/job_logging: custom

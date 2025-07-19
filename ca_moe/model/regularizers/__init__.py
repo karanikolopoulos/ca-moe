@@ -17,17 +17,17 @@ REGULARIZER_REGISTRY: dict[str, Regularizer] = {
 
 def get_regularizer(name: str | None, **kwargs) -> Regularizer:
     if name is None:
-        logger.info("No regularizer name provided.")
+        logger.debug("No regularizer name provided.")
         return Regularizer()
 
     try:
         regularizer_cls = REGULARIZER_REGISTRY[name]
-        logger.info(f"Using regularizer: {name}")
+        logger.debug(f"Using regularizer: {name}")
         return regularizer_cls(**kwargs)
     except KeyError as e:
-        logger.info(repr(e))
-        logger.info(
+        logger.debug(repr(e))
+        logger.debug(
             f"Unknown regularizer: {name}. Available options: {', '.join(REGULARIZER_REGISTRY.keys())}"
         )
-        logger.info("Fallback to no regularizer.")
+        logger.debug("Fallback to no regularizer.")
         return Regularizer()

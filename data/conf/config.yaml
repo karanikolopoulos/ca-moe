@@ -1,11 +1,10 @@
 defaults:
   - settings
-  - backend: tensorflow
+  - dataset: mnist
+  - backend: torch
+  - model: linear
   - _self_
 
 device: gpu
-model: LR
-dataset: mnist
-epochs: 50
-patience: 3
+
 

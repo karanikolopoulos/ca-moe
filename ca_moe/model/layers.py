@@ -1,9 +1,8 @@
 import logging
+from dataclasses import dataclass
 
 import torch
 import torch.nn as nn
-
-from dataclasses import dataclass
 
 from ca_moe.model.constraints import get_constraint
 from ca_moe.model.initializers import get_initializer
@@ -125,7 +124,7 @@ class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
         in_features: int,
         out_features: int,
         bias: bool = True,
-        activation: str = "relu",        
+        activation: str = "relu",
         kernel_initializer: str = "glorot_uniform",
         bias_initializer: str = "zeros",
         kernel_regularizer: str | None = None,
@@ -151,9 +150,7 @@ class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
             activity_regularizer=activity_regularizer,
         )
         ConstraintMixin.__init__(
-            self,
-            kernel_constraint=kernel_constraint,
-            bias_constraint=bias_constraint
+            self, kernel_constraint=kernel_constraint, bias_constraint=bias_constraint
         )
 
         self.activation = self.activations[activation]
@@ -164,3 +161,12 @@ class TorchDense(InitMixin, RegMixin, ConstraintMixin, nn.Module):
         output = self.activation(output)
 
         return output
+
+    def reset_parameters(self):
+        self.core.reset_parameters()
+
+
+class TorchConv2D(InitMixin, RegMixin, ConstraintMixin, nn.Module):
+    """Torch equivalent of tf.keras.Conv2D"""
+    pass
+    

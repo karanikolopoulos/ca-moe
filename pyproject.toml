@@ -7,15 +7,23 @@ authors = [
     {name = "Thanasis Karanikolopoulos", email = "thkaranikolopoulos@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = ["pandas (>=2.3.0,<3.0.0)", "hydra-core (>=1.3.2,<2.0.0)", "matplotlib (>=3.10.3,<4.0.0)", "ipykernel (>=6.29.5,<7.0.0)", "python-dotenv (>=1.1.1,<2.0.0)"]
+requires-python = ">=3.11"
+dependencies = ["hydra-core (>=1.3.2,<2.0.0)", "matplotlib (>=3.10.3,<4.0.0)", "ipykernel (>=6.29.5,<7.0.0)", "python-dotenv (>=1.1.1,<2.0.0)", "tensorflow[and-cuda] (<2.19.0)", "numpy (<2.0)", "pandas (>=2.3.1,<3.0.0)"]
 
 [tool.poetry]
 packages = [{include = "ca_moe"}]
 
 
-[tool.poetry.group.tf.dependencies]
-tensorflow = {extras = ["and-cuda"], version = "^2.19.0"}
+[tool.poetry.group.pl.dependencies]
+torch = "2.0.0"
+lightning = "2.3.0"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pre-commit = "^4.2.0"
+ruff = "^0.12.2"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -13,3 +13,4 @@ wheels/
 .env
 notebooks/proto.ipynb
 data/experiments/*
+ROADMAP.md

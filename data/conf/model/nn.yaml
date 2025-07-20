@@ -8,7 +8,7 @@ layers:
   hidden_1:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${flatten:${dataset.input_shape}}
       units: 64
       activation: relu
@@ -16,7 +16,7 @@ layers:
   hidden_2:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${...hidden_1.args.units}
       units: 32
       activation: tanh
@@ -24,7 +24,7 @@ layers:
   output_layer:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${...hidden_2.args.units}
       units: ${dataset.no_target}
       activation: softmax

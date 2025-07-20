@@ -3,7 +3,7 @@ import torch
 _EPSILON = 1e-7
 
 
-class Constraint:
+class Constraint: # fallback - null object pattern
     def __call__(self, w: torch.Tensor) -> torch.Tensor:
         return w
 

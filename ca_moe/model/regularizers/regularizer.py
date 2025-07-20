@@ -2,9 +2,9 @@ import math
 import torch
 import torch.nn.functional as F
 
-class Regularizer:
-    def __call__(self) -> torch.Tensor:
-        return torch.Tensor(0.0)
+class Regularizer: # fallback - null object pattern
+    def __call__(self, tensor: torch.Tensor) -> torch.Tensor:
+        return torch.tensor(0.0)
 
 class L1(Regularizer):
     """Adds L1 regularization penalty to tensor."""

@@ -2,7 +2,7 @@ defaults:
   - settings
   - dataset: mnist
   - backend: torch
-  - model: linear
+  - model: lenet5
   - _self_
 
 device: gpu

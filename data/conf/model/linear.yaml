@@ -8,7 +8,7 @@ layers:
   output_layer:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${flatten:${dataset.input_shape}}
       units: ${dataset.no_target}
       activation: softmax

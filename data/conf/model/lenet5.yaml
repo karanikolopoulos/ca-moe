@@ -4,7 +4,7 @@ layers:
   conv1:
     cls: ${backend.conv2d}
     args:
-      _target_: ca_moe.factories.model_factory.Conv2D
+      _target_: ca_moe.model.layers.Conv2D
       input_shape: ${dataset.input_shape}
       filters: 6
       kernel_size: 5
@@ -15,7 +15,7 @@ layers:
   avg_pool_1:
     cls: ${backend.avg_pool}
     args:
-      _target_: ca_moe.factories.model_factory.AvgMaxPool
+      _target_: ca_moe.model.layers.AvgMaxPool
       input_shape: ${calc_channels:${...conv1.args}}
       pool_size: 2
       strides: 2
@@ -24,7 +24,7 @@ layers:
   conv2:
     cls: ${backend.conv2d}
     args:
-      _target_: ca_moe.factories.model_factory.Conv2D
+      _target_: ca_moe.model.layers.Conv2D
       input_shape: ${calc_pool_out:${...avg_pool_1.args}}
       filters: 16
       kernel_size: 5
@@ -35,7 +35,7 @@ layers:
   avg_pool_2:
     cls: ${backend.avg_pool}
     args:
-      _target_: ca_moe.factories.model_factory.AvgMaxPool
+      _target_: ca_moe.model.layers.AvgMaxPool
       input_shape: ${calc_channels:${...conv2.args}}
       pool_size: 2
       strides: 2
@@ -49,7 +49,7 @@ layers:
   fc1:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${flatten:${...flatten.input_shape}}
       units: 120
       activation: tanh
@@ -57,7 +57,7 @@ layers:
   fc2:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${...fc1.args.units}
       units: 84
       activation: tanh
@@ -65,7 +65,7 @@ layers:
   output_layer:
     cls: ${backend.dense}
     args:
-      _target_: ca_moe.factories.model_factory.Dense
+      _target_: ca_moe.model.layers.Dense
       input_shape: ${...fc2.args.units}
       units: ${dataset.no_target}
       activation: softmax

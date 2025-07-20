@@ -26,29 +26,28 @@ def flatten(shape: list[int]) -> int:
     return num_input_fmaps
 
 
-def calc_channels(*args):
-    (args,) = args
-    height, *_ = args.get("input_shape")
+def get_conv2d_out_shape(args):
+    _, height, width = args.get("input_shape")
     filters = args.get("filters")
     padding = args.get("padding")
     kernel = args.get("kernel_size")
-    strides = args.get("strides")
+    stride = args.get("strides")
 
     if padding == "valid":
         pad = 0
     elif padding == "same":
-        pad = (kernel - 1) / 2
+        pad = (kernel - 1) // 2
     else:
         raise TypeError
 
-    channel = int(((height + 2 * pad - kernel) / strides) + 1)
+    out_height = (height + 2 * pad - kernel) // stride + 1
+    out_width = (width + 2 * pad - kernel) // stride + 1
 
-    return ListConfig([channel, channel, filters])
+    return ListConfig([filters, out_height, out_width])
 
 
-def get_avg_pool_out_shape(*args):
-    (args,) = args
-    input_height, input_width, filters = args.get("input_shape")
+def get_pool2d_out_shape(args):
+    filters, input_height, input_width = args.get("input_shape")
     pool_size = args.get("pool_size")
     strides = args.get("strides")
     padding = args.get("padding").lower()
@@ -62,4 +61,4 @@ def get_avg_pool_out_shape(*args):
     else:
         raise ValueError(f"Unsupported padding type: {padding}")
 
-    return ListConfig([out_height, out_width, filters])
+    return ListConfig([filters, out_height, out_width])

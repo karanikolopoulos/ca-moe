@@ -1,0 +1,14 @@
+name: cifar100
+
+module:
+  _target_: ca_moe.datasets.CIFAR100DataModule
+  batch_size: ${training.batch_size}
+  val_size: 10000
+  num_workers: ${training.num_workers}
+  seed: ${seed}
+
+input_size: 3072  # flattened: 3 * 32 * 32
+num_classes: 100
+in_channels: 3
+height: 32
+width: 32

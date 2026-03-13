@@ -1,0 +1,8 @@
+defaults:
+  - /model/moe: base
+  - /arch@experts.logistic: logistic
+  - /arch@experts.nn1: nn1
+  - /arch@experts.nn2: nn2
+
+gating:
+  num_classes: 3

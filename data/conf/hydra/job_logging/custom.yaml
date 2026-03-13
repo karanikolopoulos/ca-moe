@@ -16,16 +16,14 @@ handlers:
     level: INFO
     formatter: custom
     filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
+    mode: w
+
 
 root:
   level: INFO
   handlers: [console, file]
   propagate: yes
 torch:
-  level: INFO
-  handlers: [console, file]
-  propagate: no
-tensorflow:
   level: INFO
   handlers: [console, file]
   propagate: no

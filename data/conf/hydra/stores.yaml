@@ -1,0 +1,9 @@
+defaults:
+  - override job_logging: custom
+
+output_subdir: null
+run:
+  dir: data/experiments/${dataset.name}/${run_name}
+sweep:
+  dir: data/experiments/${dataset.name}/
+  subdir: ${run_name}

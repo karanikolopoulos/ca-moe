@@ -1,0 +1,7 @@
+defaults:
+  - /model/moe: base
+  - /arch@experts.nn2: nn2
+  - /arch@experts.lenet5: lenet5
+
+gating:
+  num_classes: 2

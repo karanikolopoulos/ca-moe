@@ -1,13 +1,16 @@
 environment:
-	@poetry config virtualenvs.in-project 1
-# @poetry config virtualenvs.path "$$(conda info --base)/envs"
+	@poetry config virtualenvs.in-project true
 	@poetry install
 
+clean:
+	@rm -rf .venv poetry.lock
+	@find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
+
+test:
+	@.venv/bin/python pytest -v tests
+
 clear_pycache:
-	@find . | grep -E "(pycache|.pyc|.pyo$)" | xargs rm -rf
+	@find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
 
-diagnose:
+quality:
 	@pre-commit run --all-files
-
-count_loc:
-	@find . -name '*.py' | xargs wc -l | sort -nr

@@ -1,5 +1,7 @@
 # Python-generated files
-pycache/
+__pycache__/
+.ruff_cache/
+.pytest_cache/
 *.py[oc]
 build/
 dist/
@@ -11,6 +13,7 @@ wheels/
 
 # Development
 .env
+.vscode/
 notebooks/proto.ipynb
 data/experiments/*
-ROADMAP.md
+data/datasets/*

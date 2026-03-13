@@ -1,0 +1,13 @@
+# @package _global_
+
+defaults:
+  - /hydra/stores
+  - override /hydra/launcher: joblib
+
+hydra:
+  mode: MULTIRUN
+  launcher:
+    n_jobs: -1
+    verbose: 0
+
+num_workers: 0 # avoid nested multiprocessing inside joblib workers

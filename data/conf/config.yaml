@@ -1,10 +1,12 @@
 defaults:
-  - settings
+  - hydra: stores
   - dataset: mnist
-  - backend: torch
-  - model: lenet5
+  - model: moe/lite
+  - training: default
+  - wandb: disabled
   - _self_
 
-device: gpu
-
-
+model_alias: ${hydra:runtime.choices.model}
+run_name: ${get_run_name:${model_alias}, ${training}, ${seed}}
+device: cuda
+seed: 2021

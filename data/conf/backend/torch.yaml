@@ -1,7 +1,0 @@
-builder:
-  _target_: ca_moe.factories.model_builder.TorchBuilder
-flatten: torch.nn.Flatten
-dense: ca_moe.model.layers.TorchDense
-conv2d: ca_moe.model.layers.TorchConv2D
-avg_pool: torch.nn.AvgPool2d
-max_pool: torch.nn.MaxPool2d

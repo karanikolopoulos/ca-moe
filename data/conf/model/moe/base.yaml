@@ -1,0 +1,23 @@
+# @package model
+_target_: ca_moe.models.CostAwareMoE
+_convert_: all
+
+gating:
+  _target_: ca_moe.models.LogisticRegressor
+  input_size: ${dataset.input_size}
+  num_classes: ??? # num. of experts - overridden by concrete moe configs
+  bias: true
+
+cost_fn:
+  _target_: ca_moe.factories.get_cost_fn
+  name: ${training.cost_fn}
+  input_shape:
+    - 1
+    - ${dataset.in_channels}
+    - ${dataset.height}
+    - ${dataset.width}
+
+learning_rate: ${training.learning_rate}
+optimizer: ${training.optimizer}
+gamma: ${training.gamma}
+lambda_: ${training.lambda_}

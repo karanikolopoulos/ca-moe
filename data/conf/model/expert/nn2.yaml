@@ -1,0 +1,3 @@
+defaults:
+  - /model/expert: base
+  - /arch@expert: nn2

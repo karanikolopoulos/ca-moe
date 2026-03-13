@@ -1,0 +1,4 @@
+_target_: ca_moe.models.NN2
+input_size: ${dataset.input_size}
+hidden_sizes: [256, 128]
+num_classes: ${dataset.num_classes}

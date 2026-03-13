@@ -1,3 +1,14 @@
 name: fashion_mnist
-input_shape: [28, 28, 1]
-no_target: 10
+
+module:
+  _target_: ca_moe.datasets.FashionMNISTDataModule
+  batch_size: ${training.batch_size}
+  val_size: 10000
+  seed: ${seed}
+  num_workers: ${training.num_workers}
+
+input_size: 784 # flattened: 28 * 28
+num_classes: 10
+in_channels: 1
+height: 28
+width: 28

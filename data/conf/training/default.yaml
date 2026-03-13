@@ -1,0 +1,11 @@
+resume: ${oc.select:resume, false}
+batch_size: ${oc.select:batch_size, 32}
+epochs: ${oc.select:epochs, 50}
+patience: ${oc.select:patience, 10}
+learning_rate: ${oc.select:learning_rate, ${oc.select:lr, 0.001}}
+optimizer: ${oc.select:optimizer, ${oc.select:opt, adam}}
+num_workers: ${oc.select:num_workers, 4}
+# moe-specific
+gamma: ${oc.select:gamma, 0} # default to max accuracy (0 = disabled)
+lambda_: ${oc.select:lambda_, 0} # entropy regularization weight (0 = disabled)
+cost_fn: ${oc.select:cost_fn, logflops} # registered in ca_moe/factories/cost_functions.py

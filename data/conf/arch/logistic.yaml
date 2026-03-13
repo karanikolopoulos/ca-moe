@@ -1,0 +1,4 @@
+_target_: ca_moe.models.LogisticRegressor
+input_size: ${dataset.input_size}
+num_classes: ${dataset.num_classes}
+bias: true

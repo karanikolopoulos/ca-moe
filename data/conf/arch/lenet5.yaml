@@ -1,0 +1,3 @@
+_target_: ca_moe.models.LeNet5
+in_channels: ${dataset.in_channels}
+num_classes: ${dataset.num_classes}

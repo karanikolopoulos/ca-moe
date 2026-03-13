@@ -1,0 +1,8 @@
+project: ca-moe
+entity: ${oc.env:WANDB_ENTITY,null}
+group: ${dataset.name}/${model_alias}
+name: ${run_name}
+tags: []
+mode: online
+notes: ""
+job_type: ""

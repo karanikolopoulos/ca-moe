@@ -1,21 +1,24 @@
 [project]
 name = "ca-moe"
-version = "0.1.0"
+version = "0.1.2"
 description = "Cost-Aware  Mixture of Experts"
 authors = [
     { name = "Christos Karanikolopoulos", email = "ckaranikolopoulos@gmail.com" },
-    { name = "Thanasis Karanikolopoulos", email = "thkaranikolopoulos@gmail.com" },
 ]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = "~=3.10"
 dependencies = [
     "hydra-core (>=1.3.2,<2.0.0)",
     "matplotlib (>=3.10.3,<4.0.0)",
     "ipykernel (>=6.29.5,<7.0.0)",
     "python-dotenv (>=1.1.1,<2.0.0)",
-    "tensorflow[and-cuda] (<2.19.0)",
     "numpy (<2.0)",
     "pandas (>=2.3.1,<3.0.0)",
+    "scikit-learn (>=1.5.0,<2.0.0)",
+    "torchvision (>=0.15.0,<1.0.0)",
+    "tqdm (>=4.66.0,<5.0.0)",
+    "wandb",
+    "hydra-joblib-launcher (>=1.2.0,<2.0.0)",
 ]
 
 [tool.poetry]
@@ -23,8 +26,8 @@ packages = [{ include = "ca_moe" }]
 
 
 [tool.poetry.group.pl.dependencies]
-torch = "2.0.0"
-lightning = "2.3.0"
+torch = "^2.2.0"
+lightning = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -37,4 +40,5 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [project.scripts]
-train = "ca_moe.__main__:main"
+ca-moe = "ca_moe.__main__:main"
+ca_moe = "ca_moe.__main__:main"

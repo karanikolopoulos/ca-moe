@@ -1,0 +1,5 @@
+# @package model
+_target_: ca_moe.models.ExpertWrapper
+learning_rate: ${training.learning_rate}
+optimizer: ${training.optimizer}
+expert: ???
